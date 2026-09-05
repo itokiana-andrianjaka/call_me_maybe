@@ -7,7 +7,7 @@
 #   By: tiana-an <tiana-an@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/09/01 10:26:00 by tiana-an            #+#    #+#            #
-#   Updated: 2026/09/05 11:02:20 by tiana-an           ###   ########.fr      #
+#   Updated: 2026/09/05 11:49:23 by tiana-an           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -51,7 +51,6 @@ class FunctionPredictor:
         for char in ['{', '}', '\n', ',', ' ', '"', ':']:
             enc_char = self.llm.encode(char)[0]
             self._utils_tokens[char] = enc_char.tolist()[0]
-        self._utils_tokens['====='] = self.llm.encode("=====")[0].tolist()
 
         self._flag_tokens = {}
         flags = ['\t"prompt": ', '\t"name": ', ',\n\t"parameters": {']
@@ -163,10 +162,10 @@ class FunctionPredictor:
 
     def res_predict(self) -> None:
         """Lance la prédiction pour tous les prompts (avec reset du contexte)."""
-        for prompt in self._prompts:
+        full_res = []
+        for count, prompt in enumerate(self._prompts):
             self._encoded = self._base_encoded[:]
 
-            self._encoded.extend(self._utils_tokens['====='])
             # Construction de la structure JSON
             self._encoded.append(self._utils_tokens['{'])
             self._encoded.append(self._utils_tokens['\n'])
@@ -201,7 +200,10 @@ class FunctionPredictor:
                 self._predict_parameter_value()
 
             self._encoded.append(self._utils_tokens['}'])
+            if count < len(self._prompts) - 1:
+                self._encoded.append(self._utils_tokens[','])
+                self._encoded.append(self._utils_tokens['\n'])
+            full_res.extend(self._encoded[len(self._base_encoded):])
 
-            # Affichage du résultat
-            full_text = self.llm.decode(self._encoded)
-            print(full_text.split("=====")[-1].strip())
+        # Affichage du résultat
+        print(self.llm.decode(full_res))
