@@ -1,0 +1,113 @@
+[
+  {
+    "name": "fn_multiply_numbers",
+    "description": "Multiply two numbers together and return their product.",
+    "parameters": {
+      "a": {
+        "type": "number"
+      },
+      "b": {
+        "type": "number"
+      }
+    },
+    "returns": {
+      "type": "number"
+    }
+  },
+  {
+    "name": "fn_convert_temperature",
+    "description": "Convert a temperature value from one unit to another (celsius, fahrenheit, kelvin).",
+    "parameters": {
+      "value": {
+        "type": "number"
+      },
+      "from_unit": {
+        "type": "string"
+      },
+      "to_unit": {
+        "type": "string"
+      }
+    },
+    "returns": {
+      "type": "number"
+    }
+  },
+  {
+    "name": "fn_get_word_count",
+    "description": "Count the number of words in a given text.",
+    "parameters": {
+      "text": {
+        "type": "string"
+      }
+    },
+    "returns": {
+      "type": "number"
+    }
+  },
+  {
+    "name": "fn_translate_text",
+    "description": "Translate a piece of text from one language to another.",
+    "parameters": {
+      "text": {
+        "type": "string"
+      },
+      "target_language": {
+        "type": "string"
+      }
+    },
+    "returns": {
+      "type": "string"
+    }
+  },
+  {
+    "name": "fn_set_wifi_status",
+    "description": "Turn the WiFi connection on or off.",
+    "parameters": {
+      "enabled": {
+        "type": "bool"
+      }
+    },
+    "returns": {
+      "type": "string"
+    }
+  },
+  {
+    "name": "fn_mark_task_complete",
+    "description": "Mark a task as completed or not completed.",
+    "parameters": {
+      "task_name": {
+        "type": "string"
+      },
+      "completed": {
+        "type": "bool"
+      }
+    },
+    "returns": {
+      "type": "string"
+    }
+  },
+  {
+    "name": "fn_get_factorial",
+    "description": "Calculate the factorial of a given integer.",
+    "parameters": {
+      "n": {
+        "type": "int"
+      }
+    },
+    "returns": {
+      "type": "int"
+    }
+  },
+  {
+    "name": "fn_round_number",
+    "description": "Round a floating-point number to the nearest whole number.",
+    "parameters": {
+      "value": {
+        "type": "float"
+      }
+    },
+    "returns": {
+      "type": "int"
+    }
+  }
+]

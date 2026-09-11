@@ -36,4 +36,4 @@ def print_error(msg: str) -> NoReturn:
         file=sys.stderr,
     )
 
-    sys.exit(1)
+    sys.exit()

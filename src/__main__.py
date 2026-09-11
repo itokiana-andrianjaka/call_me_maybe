@@ -7,35 +7,60 @@
 #   By: tiana-an <tiana-an@student.42antananarivo.   +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/08/27 09:04:13 by tiana-an            #+#    #+#            #
-#   Updated: 2026/09/04 22:27:57 by tiana-an           ###   ########.fr      #
+#   Updated: 2026/09/11 12:46:38 by tiana-an           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
-import time
-from .print_err import print_error
+"""The entrypoint of the program."""
+
+from typing import Any
+
 from .parsing import Parser
 from .prediction import FunctionPredictor
+from .build_parser import build_parser
+from .giving_output import giving_output
+from .print_err import print_error
 
 try:
+    from pydantic import ValidationError
     from llm_sdk import Small_LLM_Model
 except ModuleNotFoundError as err:
     print_error(f"[Error]: {err}")
 
-if __name__ == "__main__":
 
-    start_time = time.time()
+def main() -> None:
+    """Execute all logic of the program.
 
-    all_func: str = ""
-    all_prompt: list[str] = []
+    raises:
+        BaseException: If any error occurs during the execution of the program.
+    """
+    arguments = build_parser().parse_args()
     try:
-        parser: Parser = Parser()
-        llm = Small_LLM_Model()
-        generator = FunctionPredictor(llm, parser)
-        generator.res_predict()
+        llm: Small_LLM_Model = Small_LLM_Model(
+            model_name=arguments.model
+        )
+
+        parser: Parser = Parser(
+            fdef_path=str(arguments.functions_definition),
+            fcall_path=str(arguments.input),
+        )
+        generator: FunctionPredictor = FunctionPredictor(llm, parser)
+        final_result: list[dict[str, Any]] = generator.res_predict()
+        giving_output(final_result, str(arguments.output))
+
+    except ValidationError as err:
+        error = ""
+        for e in err.errors():
+            msg = e["msg"]
+            error += f"{msg}\n"
+        print_error(error)
 
     except BaseException as err:
-        print_error(f"Failure: {err}")
-    finally:
-        end_time = time.time()
-        diff_time = end_time - start_time
-        print(f"Execution time: {diff_time:.2f} seconds")
+        if err.__class__.__name__ == "KeyboardInterrupt":
+            print_error("[Interrupted]")
+        else:
+            print_error(str(err))
+
+
+if __name__ == "__main__":
+    main()

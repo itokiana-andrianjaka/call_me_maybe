@@ -1,0 +1,38 @@
+[
+  {
+    "prompt": "Multiply 7 by 6"
+  },
+  {
+    "prompt": "What is 12 times 15?"
+  },
+  {
+    "prompt": "Convert 100 degrees Celsius to Fahrenheit"
+  },
+  {
+    "prompt": "Convert 32 Fahrenheit to Kelvin"
+  },
+  {
+    "prompt": "How many words are in the sentence 'The quick brown fox jumps over the lazy dog'?"
+  },
+  {
+    "prompt": "Count the words in this paragraph: 'Artificial intelligence is transforming the world rapidly'"
+  },
+  {
+    "prompt": "Translate 'Good morning' into Spanish"
+  },
+  {
+    "prompt": "Translate the sentence 'How are you today?' into Japanese"
+  },
+  {
+    "prompt": "Turn off the WiFi"
+  },
+  {
+    "prompt": "Task done, mark it"
+  },
+  {
+    "prompt": "What is the factorial of 6?"
+  },
+  {
+    "prompt": "Round 8.6 to the nearest whole number"
+  }
+]
